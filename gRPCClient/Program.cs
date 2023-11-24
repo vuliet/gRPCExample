@@ -2,7 +2,7 @@
 using Grpc.Net.Client;
 using gRPCClient.Protos;
 
-var channel = GrpcChannel.ForAddress("https://localhost:7230");
+var channel = GrpcChannel.ForAddress("http://localhost:5229");
 var client = new UserProtoService.UserProtoServiceClient(channel);
 
 var request = new GetUserRequest
@@ -12,7 +12,7 @@ var request = new GetUserRequest
 
 try
 {
-    var user = client.GetUser(request);
+    var user = await client.GetUserAsync(request);
 
     Console.WriteLine(user);
 }
@@ -20,3 +20,5 @@ catch (RpcException ex)
 {
     Console.WriteLine(ex.Message);
 }
+
+Console.ReadLine();

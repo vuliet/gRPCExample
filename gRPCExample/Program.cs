@@ -1,4 +1,6 @@
 using gRPCServer.Procedures;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,18 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddGrpc();
+
+builder.WebHost
+    .UseUrls()
+    .UseKestrel()
+    .ConfigureKestrel(options =>
+    {
+        options.Listen(IPAddress.Any, 5229, listenOptions =>
+        {
+            listenOptions.Protocols = HttpProtocols.Http2;
+        });
+    })
+    .UseContentRoot(Directory.GetCurrentDirectory());
 
 var app = builder.Build();
 

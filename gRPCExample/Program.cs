@@ -21,6 +21,10 @@ builder.WebHost
         {
             listenOptions.Protocols = HttpProtocols.Http2;
         });
+        options.Listen(IPAddress.Any, 5228, listenOptions =>
+        {
+            listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
+        });
     })
     .UseContentRoot(Directory.GetCurrentDirectory());
 

@@ -18,12 +18,12 @@ builder.WebHost
     .ConfigureKestrel(options =>
     {
         var gRPCPort = 5229;
-        var projectPort = 5228;
+        var defaultProjectPort = 5228;
         options.Listen(IPAddress.Any, gRPCPort, listenOptions =>
         {
             listenOptions.Protocols = HttpProtocols.Http2;
         });
-        options.Listen(IPAddress.Any, projectPort, listenOptions =>
+        options.Listen(IPAddress.Any, defaultProjectPort, listenOptions =>
         {
             listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
         });
